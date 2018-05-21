@@ -12,7 +12,9 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "build": "gulp build",
+    "front": "gulp serve"
   },
   "main": "app.js",
   "repository": {
@@ -21,5 +23,23 @@
   },
   "author": "Brandy Lee Camacho",
   "linkedIn": "https://www.linkedin.com/in/brandycamacho/",
-  "email": "brandy@udacity.com"
+  "email": "brandy@udacity.com",
+  "devDependencies": {
+    "autoprefixer": "^7.1.4",
+    "browser-sync": "^2.18.13",
+    "css-mqpacker": "^6.0.1",
+    "del": "^3.0.0",
+    "eslint": "^4.6.1",
+    "gulp": "^3.9.1",
+    "gulp-csso": "^3.0.0",
+    "gulp-image-resize": "^0.13.0",
+    "gulp-imagemin": "^3.3.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-postcss": "^7.0.0",
+    "gulp-rename": "^1.2.3",
+    "gulp-sass": "^3.1.0",
+    "gulp-svgmin": "^1.2.4",
+    "imagemin-mozjpeg": "^7.0.0",
+    "run-sequence": "^2.1.0"
+  }
 }

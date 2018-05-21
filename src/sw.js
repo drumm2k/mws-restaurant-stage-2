@@ -1,9 +1,9 @@
-let cacheName = 'rest-reviews-v3';
-let cacheFiles = [
+let cacheAppName = 'rest-reviews-v4';
+let cacheAppFiles = [
   './',
   './index.html',
   './restaurant.html',
-  './css/styles.css',
+  './css/styles.min.css',
   './js/main.js',
   './js/restaurant_info.js',
   './js/dbhelper.js',
@@ -30,41 +30,36 @@ let cacheFiles = [
   './img/10-400.jpg'
 ];
 
-self.addEventListener('install', function(e) {
+self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(cacheName).then(function(cache) {
-      return cache.addAll(cacheFiles);
+    caches.open(cacheAppName).then(cache => {
+      return cache.addAll(cacheAppFiles);
     })
   )
 })
 
-self.addEventListener('activate', function(e) {
+self.addEventListener('activate', e => {
   e.waitUntil(
-    caches.keys().then(function(cacheNames) {
-      return Promise.all(cacheNames.map(function(currentCacheName){
-        if (currentCacheName !== cacheName) {
-          caches.delete(currentCacheName);
-        }
-      }))
+    caches.keys().then(cachesNames => {
+      return Promise.all(
+        cachesNames.filter(cachesName => {
+          return cachesName.startsWith('rest-reviews-') && cachesName != cacheAppName;
+        }).map(cachesName => {
+          return caches.delete(cachesName);
+        })
+      )
     })
   )
 })
 
-self.addEventListener('fetch', function(e) {
+self.addEventListener('fetch', e => {
   e.respondWith(
-    caches.open(cacheName).then(cache => {
-      return cache.match(e.request).then(response => {
-        return (
-          response ||
-          fetch(e.request).then(response => {
-            cache.put(e.request, response.clone());
-            return response;
-          })
-          .catch(function (err) {
-            console.log("[SW] Error fetching", err);
-          })
-        );
-      });
+    caches.match(e.request, {ignoreSearch: true}).then(response => {
+      if (response) return response;
+      return fetch(e.request);
+    })
+    .catch(err => {
+      console.log("[SW] Error fetching", err);
     })
   );
 })

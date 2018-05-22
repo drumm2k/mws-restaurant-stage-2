@@ -38,13 +38,16 @@ gulp.task('style', function() {
 });
 
 gulp.task('js', function() {
-  return gulp.src('src/js/*.js')
+  return gulp.src([
+    'src/js/*.js',
+    'src/sw.js'
+    ])
     .pipe(gulp.dest('build/js'))
     .pipe(server.stream());
 });
 
-gulp.task('sw', function() {
-  return gulp.src('src/sw.js')
+gulp.task('utility', function() {
+  return gulp.src('src/manifest.json')
     .pipe(gulp.dest('build'))
     .pipe(server.stream());
 });
@@ -107,5 +110,5 @@ gulp.task('copy', function() {
 });
 
 gulp.task('build', function(fn) {
-  run('imgmin', 'js', 'sw', 'svgmin', 'copy', 'style', fn);
+  run('imgmin', 'js', 'utility', 'svgmin', 'copy', 'style', fn);
 });

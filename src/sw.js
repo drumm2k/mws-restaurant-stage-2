@@ -7,7 +7,6 @@ let cacheAppFiles = [
   './js/main.js',
   './js/restaurant_info.js',
   './js/dbhelper.js',
-  './data/restaurants.json',
   './img/1.jpg',
   './img/2.jpg',
   './img/3.jpg',
@@ -59,7 +58,7 @@ self.addEventListener('fetch', e => {
       return fetch(e.request);
     })
     .catch(err => {
-      console.log("[SW] Error fetching", err);
+      console.log('[SW] Fetch Error', err);
     })
-  );
+  )
 })

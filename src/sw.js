@@ -1,4 +1,4 @@
-let cacheAppName = 'rest-reviews-v4';
+let cacheAppName = 'rest-reviews-v5';
 let cacheAppFiles = [
   './',
   './index.html',
@@ -26,7 +26,8 @@ let cacheAppFiles = [
   './img/7-400.jpg',
   './img/8-400.jpg',
   './img/9-400.jpg',
-  './img/10-400.jpg'
+  './img/10-400.jpg',
+  './icons/favicon.png'
 ];
 
 self.addEventListener('install', e => {

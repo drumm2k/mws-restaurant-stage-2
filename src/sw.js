@@ -1,3 +1,5 @@
+'use strict';
+
 let cacheAppName = 'rest-reviews-v5';
 let cacheAppFiles = [
   './',

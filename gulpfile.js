@@ -56,6 +56,8 @@ gulp.task('utility', function() {
 gulp.task('serve', function() {
   server.init({
     server: 'build',
+    //httpModule: 'http2',
+    //https: true,
     notify: false,
     open: true,
     ui: false

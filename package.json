@@ -1,10 +1,12 @@
 {
   "name": "Restaurant-Reviews",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.5.0",
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "apn": "^2.2.0",
+    "http2": "^3.3.7",
     "include-all": "^1.0.0",
     "rc": "1.0.1",
     "sails": "^0.12.13",
@@ -25,19 +27,19 @@
   "linkedIn": "https://www.linkedin.com/in/brandycamacho/",
   "email": "brandy@udacity.com",
   "devDependencies": {
-    "autoprefixer": "^7.1.4",
-    "browser-sync": "^2.18.13",
-    "css-mqpacker": "^6.0.1",
+    "autoprefixer": "^8.6.0",
+    "browser-sync": "^2.24.4",
+    "css-mqpacker": "^6.0.2",
     "del": "^3.0.0",
-    "eslint": "^4.6.1",
+    "eslint": "^4.19.1",
     "gulp": "^3.9.1",
-    "gulp-csso": "^3.0.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-postcss": "^7.0.0",
+    "gulp-csso": "^3.0.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-postcss": "^7.0.1",
     "gulp-rename": "^1.2.3",
     "gulp-responsive": "^2.10.0",
-    "gulp-sass": "^3.1.0",
+    "gulp-sass": "^4.0.1",
     "gulp-svgmin": "^1.2.4",
-    "run-sequence": "^2.1.0"
+    "run-sequence": "^2.2.1"
   }
 }

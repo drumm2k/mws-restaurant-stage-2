@@ -8,9 +8,7 @@ const autoprefixer = require('autoprefixer'); // Parse CSS and add vendor prefix
 const mqpacker = require('css-mqpacker'); // Pack same CSS media query rules into one using PostCSS
 const minify = require('gulp-csso'); // Minify CSS with CSSO
 const rename = require('gulp-rename'); // Rename files easily
-const imagemin = require('gulp-imagemin'); // Minify PNG, JPEG, GIF and SVG images with imagemin
-const imageminMozjpeg = require('imagemin-mozjpeg'); // Compress IMG's
-const imageresize = require('gulp-image-resize'); // Change IMG resolution
+const responsive = require('gulp-responsive'); // Resize and compress IMG's
 const svgmin = require('gulp-svgmin'); // Minify SVG with SVGO
 const server = require('browser-sync').create(); // Live CSS Reload & Browser Syncing
 const run = require('run-sequence'); // Run a series of dependent gulp tasks in order
@@ -76,17 +74,24 @@ gulp.task("copy_html", function() {
 });
 
 gulp.task('imgmin', function() {
-  return gulp.src('src/img/**/*.{png,jpg,gif}')
-    .pipe(imagemin([
-      imageminMozjpeg({quality: 70}),
-      imagemin.optipng({optimizationLevel: 3})
-    ]))
+  return gulp.src('src/img/**/*.{png,jpg}')
+    .pipe(responsive({
+      '*.jpg': {
+        quality: 70
+      },
+      '*.png': {
+        compressionLevel: 4
+      }
+    }))
     .pipe(gulp.dest('build/img'))
-    .pipe(imageresize({
-      width : 400,
-      height : 400,
-      crop : false,
-      upscale : false
+    .pipe(responsive({
+      '*.jpg': {
+        width: 400,
+        height: 400,
+        min: true
+      },
+      '*.png': {
+      }
     }))
     .pipe(rename(function (path) {
       path.basename += '-400';

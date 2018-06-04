@@ -1,4 +1,7 @@
-//'use strict';
+'use strict';
+
+let dbPromise;
+
 /**
  * Common database helper functions.
  */
@@ -12,20 +15,50 @@ class DBHelper {
     const port = 1337 // Change this to your server port
     return `http://localhost:${port}/restaurants`;
   }
+  
+  static openDB() {
+    return idb.open('restaurants', 1, upgradeDB => {
+      upgradeDB.createObjectStore('restaurants', {keyPath: 'id'});
+    });
+  }
+
+  static checkDB() {
+    dbPromise = DBHelper.openDB();
+    return dbPromise.then(db => {
+      if(!db) return;
+
+      let tx = db.transaction('restaurants');
+      let store = tx.objectStore('restaurants');
+      return store.getAll();
+    });
+  }
 
   /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    fetch(DBHelper.DATABASE_URL)
-      .then(response => response.json())
-      .then(json => {
-        const restaurants = json;
+    DBHelper.checkDB().then(restaurants => {
+      if(restaurants.length > 0){
         return callback(null, restaurants);
-      })
-      .catch(err => {
-        console.log('[DB] Fetch Error ' + err);
-      })
+      }
+
+      fetch(DBHelper.DATABASE_URL)
+        .then(response => response.json())
+        .then(restaurants => {
+          dbPromise.then(db => {
+            if(!db) return db;
+            
+            let tx = db.transaction('restaurants' , 'readwrite');
+            let store = tx.objectStore('restaurants');
+
+            restaurants.forEach(restaurant => store.put(restaurant));
+          });
+          return callback(null, restaurants);
+        })
+        .catch(err => {
+          console.log('[DB] Fetch Error ' + err);
+        })
+    })
   }
 
   /**

@@ -15,13 +15,13 @@
 ```Install sails global
 # npm i sails -g
 ```
-###### Start the server
-```Start server
-# npm run back
-```
 ###### Build project
 ```Start server
 # npm run build
+```
+###### Start backend server
+```Start server
+# npm run back
 ```
 ###### Start frontend liveserver
 ```Start server

@@ -13,8 +13,7 @@
     "sails-disk": "~0.10.9"
   },
   "scripts": {
-    "debug": "node debug app.js",
-    "start": "node app.js",
+    "back": "node server",
     "build": "gulp build",
     "front": "gulp serve"
   },

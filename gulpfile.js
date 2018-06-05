@@ -76,7 +76,8 @@ gulp.task('utility', function() {
   return gulp.src([
     'src/*.html',
     'src/manifest.json',
-    'src/icons/*.png'
+    'src/icons/*.png',
+    'src/img/map/*.jpg'
   ], {base: 'src'})
     .pipe(gulp.dest('build'))
     .pipe(server.stream());
@@ -105,8 +106,8 @@ gulp.task("copy_html", function() {
     .pipe(gulp.dest("build"));
 });
 
-gulp.task('jpgmin', function() {
-  return gulp.src('src/img/**/*.jpg')
+gulp.task('imgmin', function() {
+  return gulp.src('src/img/*.jpg')
     .pipe(responsive({
       '*.jpg': {
         quality: 70
@@ -137,5 +138,5 @@ gulp.task('pngmin', function() {
 });
 
 gulp.task('build', function(fn) {
-  run('jpgmin', 'pngmin', 'js', 'js_rest', 'sw', 'utility', 'style', fn);
+  run('imgmin', 'js', 'js_rest', 'sw', 'utility', 'style', fn);
 });

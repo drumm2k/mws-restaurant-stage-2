@@ -1,10 +1,11 @@
 'use strict';
 
-let cacheAppName = 'rest-reviews-v5';
+let cacheAppName = 'rest-reviews-v6';
 let cacheAppFiles = [
   './',
   './index.html',
   './restaurant.html',
+  './manifest.json',
   './css/styles.min.css',
   './js/main.js',
   './js/restaurant_info.js',
@@ -30,7 +31,13 @@ let cacheAppFiles = [
   './img/8-400.jpg',
   './img/9-400.jpg',
   './img/10-400.jpg',
-  './icons/favicon.png'
+  './img/map-placeholder-sm.png',
+  './img/map-placeholder-mid.png',
+  './img/map-placeholder-big.png',
+  './icons/favicon.png',
+  './icons/icon-128.png',
+  './icons/icon-196.png',
+  './icons/icon-512.png'
 ];
 
 self.addEventListener('install', e => {

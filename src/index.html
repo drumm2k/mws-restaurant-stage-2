@@ -22,12 +22,11 @@
   <main id="maincontent">
     <section id="map-container" title="Google Maps" role="application">
       <div id="map">
-        <!--
         <picture>
-          <source media="(max-width: 400px)" srcset="/img/map-placeholder-small.png">
-          <img id="map-placeholder" src="/img/map-placeholder.png" alt="Map of New York with restaurant pins">
+          <source media="(min-width: 769px)" srcset="/img/map-placeholder-big.png">
+          <source media="(min-width: 451px)" srcset="/img/map-placeholder-mid.png">
+          <img class="map-placeholder" src="/img/map-placeholder-sm.png" alt="Map with restaurant pins">
         </picture>
-        -->
       </div>
     </section>
     <section id="skip-map" tabindex="-1">
@@ -48,7 +47,7 @@
   <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAGGll2CJYiI95K9KoPuvc7xhGn8FWWgs&libraries=places&callback=initMap"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAGGll2CJYiI95K9KoPuvc7xhGn8FWWgs&libraries=places"></script>
 
 
   <footer id="footer">

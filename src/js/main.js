@@ -4,14 +4,27 @@ let restaurants,
   neighborhoods,
   cuisines;
 let map;
+let isMapLoaded = false;
 var markers = [];
+
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
+  registerServiceWorker();
   fetchNeighborhoods();
   fetchCuisines();
+  updateRestaurants();
+  document.getElementById('map').addEventListener('click', (e) => {
+    if (!isMapLoaded) initMap();
+  });
+  document.getElementById('cuisines-select').addEventListener('change', (e) => {
+		if (!isMapLoaded) initMap();
+  });
+  document.getElementById('neighborhoods-select').addEventListener('change', (e) => {
+		if (!isMapLoaded) initMap();
+	});
 });
 
 /**
@@ -72,17 +85,20 @@ const fillCuisinesHTML = (cuisines = self.cuisines) => {
 /**
  * Initialize Google map, called from HTML.
  */
-window.initMap = () => {
+const initMap = () => {
   let loc = {
     lat: 40.722216,
-    lng: -73.987501
+    lng: -73.980501
   };
+
   self.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: loc,
     scrollwheel: false
   });
+
   updateRestaurants();
+  isMapLoaded = true;
 }
 
 /**
@@ -131,7 +147,7 @@ const fillRestaurantsHTML = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
   });
-  addMarkersToMap();
+  if (isMapLoaded) addMarkersToMap();
 
   //Lazyload IMG's
   let myLazyLoad = new LazyLoad();
@@ -196,9 +212,11 @@ const addMarkersToMap = (restaurants = self.restaurants) => {
 /**
  * Register ServiceWorker.
  */
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js')
-  .catch(function(err) {
-  console.log("[SW] Registration Failed", err);
-  });
+const registerServiceWorker = () => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+    .catch( err => {
+      console.log("[SW] Registration Failed", err);
+    });
+  }
 }

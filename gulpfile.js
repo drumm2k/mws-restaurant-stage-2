@@ -47,6 +47,7 @@ gulp.task('js', function() {
 
 gulp.task('utility', function() {
   return gulp.src([
+    'src/*.html',
     'src/manifest.json',
     'src/icons/*.png'
   ], {base: 'src'})
@@ -77,14 +78,11 @@ gulp.task("copy_html", function() {
     .pipe(gulp.dest("build"));
 });
 
-gulp.task('imgmin', function() {
-  return gulp.src('src/img/**/*.{png,jpg}')
+gulp.task('jpgmin', function() {
+  return gulp.src('src/img/**/*.jpg')
     .pipe(responsive({
       '*.jpg': {
         quality: 70
-      },
-      '*.png': {
-        compressionLevel: 4
       }
     }))
     .pipe(gulp.dest('build/img'))
@@ -93,8 +91,6 @@ gulp.task('imgmin', function() {
         width: 400,
         height: 400,
         min: true
-      },
-      '*.png': {
       }
     }))
     .pipe(rename(function (path) {
@@ -103,24 +99,16 @@ gulp.task('imgmin', function() {
     .pipe(gulp.dest('build/img'));
 });
 
-gulp.task('svgmin', function() {
-  return gulp.src('src/img/**/*.svg')
-    .pipe(svgmin())
-    .pipe(gulp.dest('src/img'));
-})
-
-gulp.task('copy', function() {
-  return gulp.src([
-    'src/*.html',
-    'src/fonts/**/*.{woff,woff2}',
-    'src/js/*.js',
-    'src/img/*.*'
-  ], {
-    base: 'src'
-  })
-    .pipe(gulp.dest('build'));
+gulp.task('pngmin', function() {
+  return gulp.src('src/img/**/*.png')
+    .pipe(responsive({
+      '*.png': {
+        compressionLevel: 5
+      }
+    }))
+    .pipe(gulp.dest('build/img'))
 });
 
 gulp.task('build', function(fn) {
-  run('imgmin', 'js', 'utility', 'svgmin', 'copy', 'style', fn);
+  run('jpgmin', 'pngmin', 'js', 'utility', 'style', fn);
 });

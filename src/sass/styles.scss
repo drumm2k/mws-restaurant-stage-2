@@ -120,9 +120,10 @@ nav h1 a {
   height: 400px;
   width: 100%;
   background-color: #ccc;
+  overflow: hidden;
 }
 
-#map-placeholder {
+.map-placeholder {
   position: relative;
   left: 50%;
   transform: translateX(-50%);

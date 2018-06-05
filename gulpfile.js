@@ -101,7 +101,7 @@ gulp.task('serve', function() {
   gulp.watch('src/sass/**/*.{scss,sass}', ['style']);
 });
 
-gulp.task("copy_html", function() {
+gulp.task('copy_html', function() {
   return gulp.src("src/*.html", {base: "src"})
     .pipe(gulp.dest("build"));
 });
@@ -138,5 +138,5 @@ gulp.task('pngmin', function() {
 });
 
 gulp.task('build', function(fn) {
-  run('imgmin', 'js', 'js_rest', 'sw', 'utility', 'style', fn);
+  run('imgmin', 'js', 'js_rest', 'copy_html', 'sw', 'utility', 'style', fn);
 });

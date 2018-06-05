@@ -1,16 +1,14 @@
 'use strict';
 
-let cacheAppName = 'rest-reviews-v6';
+let cacheAppName = 'rest-reviews-v7';
 let cacheAppFiles = [
   './',
   './index.html',
   './restaurant.html',
   './manifest.json',
   './css/styles.min.css',
-  './js/main.js',
-  './js/restaurant_info.js',
-  './js/dbhelper.js',
-  './js/idb.js',
+  './js/index.js',
+  './js/rest.js',
   './img/1.jpg',
   './img/2.jpg',
   './img/3.jpg',

@@ -13,6 +13,10 @@ const svgmin = require('gulp-svgmin'); // Minify SVG with SVGO
 const server = require('browser-sync').create(); // Live CSS Reload & Browser Syncing
 const run = require('run-sequence'); // Run a series of dependent gulp tasks in order
 const compression = require('compression'); // Gzip
+const uglify = require('gulp-uglify'); // Minify JS
+const concat = require('gulp-concat'); // Concat
+const sourcemaps = require('gulp-sourcemaps'); // SouceMaps for JS
+const babel = require('gulp-babel'); // BabelJS
 
 gulp.task('style', function() {
   gulp.src('src/sass/styles.scss')
@@ -37,10 +41,33 @@ gulp.task('style', function() {
 });
 
 gulp.task('js', function() {
-  return gulp.src([
-    'src/js/*.js',
-    'src/sw.js'
-    ], {base: 'src'})
+  return gulp.src(['src/js/*.js', '!src/js/restaurant_info.js'])
+    .pipe(sourcemaps.init())
+    .pipe(babel({
+      presets: ['env']
+    }))
+    .pipe(concat('index.js'))
+    .pipe(uglify())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('build/js'))
+    .pipe(server.stream());
+});
+
+gulp.task('js_rest', function() {
+  return gulp.src(['src/js/*.js', '!src/js/main.js'])
+    .pipe(sourcemaps.init())
+    .pipe(babel({
+      presets: ['env']
+    }))
+    .pipe(concat('rest.js'))
+    .pipe(uglify())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('build/js'))
+    .pipe(server.stream());
+});
+
+gulp.task('sw', function() {
+  return gulp.src(['src/sw.js'])
     .pipe(gulp.dest('build'))
     .pipe(server.stream());
 });
@@ -66,8 +93,8 @@ gulp.task('serve', function() {
     ui: false
   });
 
-  gulp.watch('src/sw.js', ['js']);
-  gulp.watch('src/js/*.js', ['js']);
+  gulp.watch('src/sw.js', ['sw']);
+  gulp.watch('src/js/*.js', ['js', 'js_rest']);
   gulp.watch('src/*.html', ['copy_html']);
   gulp.watch('build/*.html').on('change', server.reload);
   gulp.watch('src/sass/**/*.{scss,sass}', ['style']);
@@ -110,5 +137,5 @@ gulp.task('pngmin', function() {
 });
 
 gulp.task('build', function(fn) {
-  run('jpgmin', 'pngmin', 'js', 'utility', 'style', fn);
+  run('jpgmin', 'pngmin', 'js', 'js_rest', 'sw', 'utility', 'style', fn);
 });

@@ -59,12 +59,12 @@ const fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
-  image.src = '/img/' + restaurant.id + '.jpg';
+  image.src = '/img/' + restaurant.id + '-400.jpg';
   image.alt = restaurant.name + " Restaurant";
 
   const picture = document.getElementById('restaurant-img-media');
-  picture.media = '(max-width: 500px)';
-  picture.srcset = '/img/' + restaurant.id + '-400.jpg';
+  picture.media = '(min-width: 450px)';
+  picture.srcset = '/img/' + restaurant.id + '.jpg';
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;

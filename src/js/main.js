@@ -132,6 +132,9 @@ const fillRestaurantsHTML = (restaurants = self.restaurants) => {
     ul.append(createRestaurantHTML(restaurant));
   });
   addMarkersToMap();
+
+  //Lazyload IMG's
+  let myLazyLoad = new LazyLoad();
 }
 
 /**
@@ -144,13 +147,13 @@ const createRestaurantHTML = (restaurant) => {
   li.append(picture);
 
   const source = document.createElement('source');
-  source.media = '(max-width: 1200px)';
-  source.srcset = '/img/' + restaurant.id + '-400.jpg';
+  source.media = '(min-width: 768px)';
+  source.setAttribute('data-srcset', '/img/' + restaurant.id + '.jpg');
   picture.append(source);
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
-  image.src = '/img/' + restaurant.id + '.jpg';
+  image.setAttribute('data-src', '/img/' + restaurant.id + '-400.jpg');
   image.alt = restaurant.name + " Restaurant";
   picture.append(image);
 

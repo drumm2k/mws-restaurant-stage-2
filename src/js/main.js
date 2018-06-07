@@ -10,20 +10,20 @@ var markers = [];
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', (e) => {
   registerServiceWorker();
   fetchNeighborhoods();
   fetchCuisines();
   updateRestaurants();
   document.getElementById('map').addEventListener('click', (e) => {
-    if (!isMapLoaded) initMap();
-  });
+    initMap();
+  }, {once: true});
   document.getElementById('cuisines-select').addEventListener('change', (e) => {
-		if (!isMapLoaded) initMap();
-  });
+    initMap();
+  }, {once: true});
   document.getElementById('neighborhoods-select').addEventListener('change', (e) => {
-		if (!isMapLoaded) initMap();
-	});
+    initMap();
+	}, {once: true});
 });
 
 /**
@@ -85,19 +85,21 @@ const fillCuisinesHTML = (cuisines = self.cuisines) => {
  * Initialize Google map, called from HTML.
  */
 const initMap = () => {
-  let loc = {
-    lat: 40.722216,
-    lng: -73.980501
-  };
+  if (!isMapLoaded) {
+    let loc = {
+      lat: 40.722216,
+      lng: -73.980501
+    };
 
-  self.map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: loc,
-    scrollwheel: false
-  });
+    self.map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: loc,
+      scrollwheel: false
+    });
 
-  updateRestaurants();
-  isMapLoaded = true;
+    updateRestaurants();
+    isMapLoaded = true;
+  }
 }
 
 /**

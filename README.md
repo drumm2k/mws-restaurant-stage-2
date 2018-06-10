@@ -1,3 +1,6 @@
+## About
+This is my Udacity Mobile Web Specialist Nanodegree Program project
+
 ## Architecture
 - Node.js
 - Sails.js
@@ -15,8 +18,13 @@
 ```Install sails global
 # npm i sails -g
 ```
+###### Add gmaps key
+```Add gmaps key
+# src/index.html
+# src/restaurant.html
+```
 ###### Build project
-```Start server
+```Build project
 # npm run build
 ```
 ###### Start backend server
